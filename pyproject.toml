@@ -1,9 +1,0 @@
-[project]
-name = "vehicle-vision-ai"
-version = "1.0.0"
-description = "Local vehicle image intelligence and processing system"
-
-[tool.pyright]
-venvPath = "."
-venv = "myenv"
-extraPaths = ["myenv/lib/python3.14/site-packages"]
