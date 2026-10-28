@@ -2,96 +2,29 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
-# C extensions
 *.so
+.pytest_cache/
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Virtual environments
-myenv/
-venv/
-env/
-ENV/
+# Virtual Environment
 .venv/
-env.bak/
-venv.bak/
+env/
+venv/
+ENV/
 
-# Environment variables & secrets
-.env
-.env.local
-.env.*.local
-*.env
+# Uploads and Outputs (ignore generated files, keep folders)
+uploads/*
+!uploads/.gitkeep
+outputs/*
+!outputs/.gitkeep
 
-# IDE and Editor files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+# Large AI Model weights (GitHub 100MB file limit)
+models/models/u2net/u2net.onnx
+*.weights
+*.bin
+*.pt
 
-# Operating System files
+# OS / Editor files
 .DS_Store
 Thumbs.db
-
-# Databases & SQLite
-*.db
-*.sqlite
-*.sqlite3
-vehicle_database/*.db
-vehicle_database/*.sqlite3
-
-# Media, processed files, and temporary data
-data/uploads/
-data/processed/
-data/outputs/
-data/temp/
-*.jpg
-*.jpeg
-*.png
-*.webp
-*.mp4
-*.avi
-*.mov
-*.webm
-*.mkv
-# (Keep data directory structure tracked with .gitkeep if needed)
-!data/.gitkeep
-!data/sample_images/
-
-# ML Model checkpoints / weights (large binary files)
-*.pt
-*.pth
-*.onnx
-*.weights
-*.h5
-
-# Logs
-*.log
-logs/
-
-# Testing & Linters
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-htmlcov/
-
+.idea/
+.vscode/
