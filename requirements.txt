@@ -1,11 +1,29 @@
-fastapi
-uvicorn[standard]
-python-multipart
+# =====================================================================
+# VehicleVision Pipeline Dependencies
+# =====================================================================
 
-opencv-python
-numpy
-Pillow
+# 1. Core Computer Vision & Image Processing
+pillow>=10.0.0
+numpy>=1.24.0
+opencv-python-headless>=4.8.0
+scipy>=1.10.0
+scikit-image>=0.20.0
+matplotlib>=3.7.0
 
-pytesseract
+# 2. OCR & Text Extraction Engine (getText.py)
+pytesseract>=0.3.10
+rapidfuzz>=3.0.0
+rapidocr-onnxruntime>=1.2.0
 
-SQLAlchemy
+# 3. AI Inference & Background Removal (detectVehicle.py, removeBg.py, addBg.py)
+onnxruntime>=1.20.0
+rembg>=2.0.80
+
+# 4. Utilities & Pipeline Runtime (videoGen.py, server.py)
+tqdm>=4.65.0
+python-dotenv>=1.0.0
+PyYAML>=6.0.0
+requests>=2.28.0
+
+# 5. Audio & Voice Narration Engine (Supertonic 3)
+supertonic>=0.1.0
