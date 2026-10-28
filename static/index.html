@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Frame AI — Automotive Studio & Video Showcase Engine</title>
+    <meta name="description" content="AI Vehicle Detection, Background Removal, Dealership License Plate Branding, Luxury Showroom Studio Compositing, and Cinematic Reel Generator.">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <a href="/" class="nav-brand">
+            <div class="brand-icon">🚗</div>
+            <div class="brand-text">
+                <h1>Auto Frame AI</h1>
+                <span>Vehicle Studio & Video Engine</span>
+            </div>
+        </a>
+        <div class="nav-actions">
+            <div class="status-badge" id="server-status">
+                <div class="status-dot"></div>
+                <span>AI Engine Online</span>
+            </div>
+            <a href="/docs" target="_blank" class="nav-link" id="link-docs">Swagger API Docs</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-pill">⚡ Powered by OpenCV, U2Net, RapidOCR & FFmpeg</div>
+            <h2 class="hero-title">
+                Transform Raw Car Photos into <br>
+                <span class="gradient-text">Cinematic Studio Showcases</span>
+            </h2>
+            <p class="hero-desc">
+                Upload raw vehicle images to run the complete computer vision pipeline: AI vehicle view classification,
+                flawless background cutout, dealership license plate branding, studio showroom compositing, and video reel generation.
+            </p>
+        </section>
+
+        <!-- Stepper -->
+        <div class="stepper-container" id="stepper">
+            <div class="step-item active" data-step="0">
+                <div class="step-num">1</div>
+                <div class="step-info">
+                    <h4>Upload & Brand</h4>
+                    <span>Raw Photos & Dealer Info</span>
+                </div>
+            </div>
+            <div class="step-item" data-step="1">
+                <div class="step-num">2</div>
+                <div class="step-info">
+                    <h4>OCR & Specs</h4>
+                    <span>Reg & Spec Extraction</span>
+                </div>
+            </div>
+            <div class="step-item" data-step="2">
+                <div class="step-num">3</div>
+                <div class="step-info">
+                    <h4>AI Cutout & Plate</h4>
+                    <span>Matting & Dealer Stamp</span>
+                </div>
+            </div>
+            <div class="step-item" data-step="3">
+                <div class="step-num">4</div>
+                <div class="step-info">
+                    <h4>Studio Framing</h4>
+                    <span>Ground Shadow & Floor Reflection</span>
+                </div>
+            </div>
+            <div class="step-item" data-step="4">
+                <div class="step-num">5</div>
+                <div class="step-info">
+                    <h4>Cinematic Reel</h4>
+                    <span>Transitions & Lower Thirds</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Workspace Grid -->
+        <div class="workspace-grid">
+
+            <!-- Left: Dropzone & Image Queue -->
+            <div class="glass-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>📸 Vehicle Photos</span>
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="btn-load-demo" title="Instantly load sample photos from color cars/">
+                        ✨ Load Demo Car
+                    </button>
+                </div>
+
+                <!-- Dropzone Area -->
+                <div class="dropzone" id="dropzone">
+                    <input type="file" id="file-input" multiple accept="image/jpeg,image/png,image/webp" style="display:none;">
+                    <div class="dropzone-icon">🏎️</div>
+                    <div class="dropzone-title">Drag & Drop Vehicle Images Here</div>
+                    <div class="dropzone-subtitle">Supports Exterior Front, Rear, Sides, Cockpit & Interior shots (JPG, PNG, WEBP)</div>
+                    <div class="dropzone-actions">
+                        <button type="button" class="btn btn-primary" id="btn-browse">Browse Files</button>
+                    </div>
+                </div>
+
+                <!-- Selected Queue -->
+                <div class="image-queue" id="queue-section" style="display: none;">
+                    <div class="queue-header">
+                        <strong id="queue-count">0 Image(s)</strong>
+                        <button type="button" class="btn btn-secondary" id="btn-clear-queue" style="padding: 4px 10px; font-size: 0.78rem;">Clear All</button>
+                    </div>
+                    <div class="queue-grid" id="queue-grid">
+                        <!-- Preview Cards will be dynamically injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Studio & Branding Settings -->
+            <div class="glass-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>⚙️ Dealership & Studio Settings</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="input-dealer-name">Dealership / Brand Name (Stamps on License Plate)</label>
+                    <input type="text" class="form-input" id="input-dealer-name" value="AUTOFRAME MOTORS" placeholder="e.g. SUPERIOR MOTORS">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="form-group">
+                        <label class="form-label" for="input-dealer-phone">Contact / WhatsApp</label>
+                        <input type="text" class="form-input" id="input-dealer-phone" value="+91 98765 43210" placeholder="+91 98765 43210">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="input-price">Vehicle Asking Price</label>
+                        <input type="text" class="form-input" id="input-price" value="₹ 11,50,000" placeholder="e.g. ₹ 14,50,000">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="input-car-title">Custom Vehicle Title (Optional — auto-read via OCR)</label>
+                    <input type="text" class="form-input" id="input-car-title" placeholder="Leave empty for auto OCR extraction (e.g. 2022 Hyundai Creta)">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Studio Showroom Environment</label>
+                    <div class="preset-grid">
+                        <div class="preset-card selected" data-preset="showroom">
+                            <h5>🏢 Luxury Showroom</h5>
+                            <span>Reflective epoxy floor</span>
+                        </div>
+                        <div class="preset-card" data-preset="studio">
+                            <h5>📸 Photo Studio</h5>
+                            <span>Clean gradient studio</span>
+                        </div>
+                        <div class="preset-card" data-preset="dark">
+                            <h5>🌑 Midnight Dark</h5>
+                            <span>Moody spotlight floor</span>
+                        </div>
+                        <div class="preset-card" data-preset="outdoor">
+                            <h5>🌅 Pavilion</h5>
+                            <span>Modern architectural</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 14px; margin-bottom: 24px;">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label class="form-label" for="select-layout">Video Format / Aspect Ratio</label>
+                        <select class="form-select" id="select-layout">
+                            <option value="vertical_reel" selected>📱 9:16 Vertical Reel (Shorts, Reels, TikTok)</option>
+                            <option value="default">🖥️ 16:9 / Landscape Showcase</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label class="form-label" for="input-slide-duration">
+                            Slide Duration: <strong id="duration-display" style="color:var(--accent-cyan);">3.0s</strong>
+                        </label>
+                        <input type="range" class="form-input" id="input-slide-duration" min="2.0" max="6.0" step="0.5" value="3.0" style="padding: 6px 0;">
+                    </div>
+                </div>
+
+                <!-- Launch Action -->
+                <button type="button" class="btn btn-launch" id="btn-launch" disabled>
+                    🚀 Run AutoFrame AI Pipeline
+                </button>
+            </div>
+        </div>
+
+        <!-- Live Progress Section -->
+        <section class="progress-section glass-card" id="progress-section">
+            <div class="progress-header">
+                <div class="progress-stage" id="progress-stage">Initializing Pipeline...</div>
+                <div class="progress-pct" id="progress-pct">0%</div>
+            </div>
+            <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="progress-bar-fill"></div>
+            </div>
+            <div class="console-box">
+                <div class="spinner"></div>
+                <span id="console-message">Starting computer vision and video rendering pipeline...</span>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section" id="results-section">
+            <div class="hero-section" style="margin-bottom: 24px;">
+                <div class="hero-pill" style="background:rgba(16, 185, 129, 0.15); border-color:rgba(16, 185, 129, 0.3); color:var(--accent-emerald);">
+                    🎉 Generation Complete
+                </div>
+                <h3 class="hero-title" style="font-size: 2.2rem;">Vehicle Showcase Ready</h3>
+            </div>
+
+            <div class="results-grid">
+                <!-- Video Player Card -->
+                <div class="video-container">
+                    <video id="video-player" class="video-player" controls autoplay loop playsinline>
+                        Your browser does not support HTML5 video.
+                    </video>
+                    <div class="video-footer">
+                        <div>
+                            <strong style="display:block; color:#fff;">Vehicle Showcase Video</strong>
+                            <span style="font-size:0.75rem; color:var(--text-muted);">MP4 1080p • Ready for Social Media</span>
+                        </div>
+                        <button type="button" class="btn btn-success" id="btn-download-video">
+                            ⬇️ Download Video (.MP4)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Extracted Specs & Details Card -->
+                <div class="glass-card" style="padding: 24px;">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span>📋 OCR Extracted Specs</span>
+                        </div>
+                    </div>
+                    <div class="specs-grid" id="specs-grid">
+                        <!-- Spec chips dynamically injected here -->
+                    </div>
+                    <div style="background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: var(--radius-sm); padding: 16px;">
+                        <h4 style="color:var(--accent-cyan); margin: 0 0 6px 0; font-size: 0.95rem;">💡 Pipeline Summary</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0; line-height: 1.5;">
+                            All exterior angles had their backgrounds removed and license plates replaced with your custom dealership branding.
+                            Each vehicle photo was seamlessly composited onto the luxury showroom floor with realistic contact shadows before being rendered into this cinematic showcase video.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Before / After Studio Comparison Showcase -->
+            <div class="glass-card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>🖼️ Studio Transformation Comparison</span>
+                    </div>
+                    <span style="font-size:0.82rem; color:var(--text-muted);">Compare original raw photos with the studio showroom composites</span>
+                </div>
+                <div class="comparison-grid" id="comparison-grid">
+                    <!-- Cards dynamically injected here -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
